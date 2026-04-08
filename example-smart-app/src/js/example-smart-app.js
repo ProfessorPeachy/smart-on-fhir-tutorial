@@ -30,10 +30,15 @@
 
           var fname = '';
           var lname = '';
-
-          if (typeof patient.name[0] !== 'undefined') {
-            fname = patient.name[0].given.join(' ');
-            lname = patient.name[0].family.join(' ');
+          
+          if (patient.name && typeof patient.name[0] !== 'undefined') {
+            fname = Array.isArray(patient.name[0].given)
+              ? patient.name[0].given.join(' ')
+              : (patient.name[0].given || '');
+          
+            lname = Array.isArray(patient.name[0].family)
+              ? patient.name[0].family.join(' ')
+              : (patient.name[0].family || '');
           }
 
           var height = byCodes('8302-2');
